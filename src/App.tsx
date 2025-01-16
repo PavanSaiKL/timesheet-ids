@@ -1,7 +1,7 @@
 import React from 'react';
 import FormComponent from './shared/dynamic-form';
 
-interface FormElement {
+type FormElement = {
   span: number;
   offset?: number;
   element: {
@@ -12,7 +12,7 @@ interface FormElement {
     valuePropName?: string;
   };
   extraClassName?: string;
-}
+};
 
 const formDef: {
   gutter: number;
@@ -66,8 +66,6 @@ const formDef: {
   },
 ];
 
-
-
 const buttonDef = [
   {
     flexConfig: { justify: 'center', align: 'middle', gap: '10px' },
@@ -75,19 +73,19 @@ const buttonDef = [
       {
         elementType: 'button',
         type: 'primary',
-        htmlType: "submit",
-        text: "Save",
-        name: "save",
-        className: 'button-gap'
+        htmlType: 'submit',
+        text: 'Save',
+        name: 'save',
+        className: 'button-gap',
       },
       {
         elementType: 'button',
         type: 'primary',
-        htmlType: "submit",
-        text: "cancel",
-        name: "cancel",
+        htmlType: 'submit',
+        text: 'cancel',
+        name: 'cancel',
         danger: true,
-      }
+      },
     ],
   },
 ];

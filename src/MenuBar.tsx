@@ -16,11 +16,11 @@ import {
 import './App.css';
 import { useNavigate } from 'react-router-dom';
 
-interface SubMenuItem {
+type SubMenuItem = {
   label: string;
   icon: string;
   route: string;
-}
+};
 
 const menuItems = [
   { icon: mdiHome, route: '/', id: 'home' },
@@ -36,8 +36,9 @@ const menuItems = [
 const subMenuItems: Record<string, SubMenuItem[]> = {
   dashboard: [
     {
-      icon: mdiAccountGroupOutline, route: '/dashboard/employee',
-      label: ''
+      icon: mdiAccountGroupOutline,
+      route: '/dashboard/employee',
+      label: '',
     },
     { icon: mdiBriefcaseOutline, route: '/dashboard/project', label: '' },
   ],
@@ -68,10 +69,7 @@ const CustomMenu = () => {
         <MenuTrigger>
           <button className="hidden">Trigger</button>
         </MenuTrigger>
-        <MenuContent
-          container={false}
-          className="h-screen bg-gray-100 shadow-lg flex rounded-none flex-col w-[80px]"
-        >
+        <MenuContent container={false} className="h-screen bg-gray-100 shadow-lg flex rounded-none flex-col w-[80px]">
           <div className="flex justify-center mb-6 mt-6">
             <MenuItem
               onClick={() => navigate('/menu')}

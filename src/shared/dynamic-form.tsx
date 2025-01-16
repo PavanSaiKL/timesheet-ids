@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Row, Col, Input, Button, Checkbox } from 'antd';
+import { Form, Row, Col, Input, Checkbox } from 'antd';
 import SelectComponent from './select';
 import ButtonComponent from './button';
 
 const { TextArea } = Input;
 
-interface FormElement {
+type FormElement = {
   span: number;
   offset?: number;
   element: {
@@ -16,14 +16,14 @@ interface FormElement {
     valuePropName?: string;
   };
   extraClassName?: string;
-}
+};
 
-interface ButtonDef {
+type ButtonDef = {
   flexConfig: any;
   button: any[];
-}
+};
 
-interface FormComponentProps {
+type FormComponentProps = {
   formDef: {
     gutter: number;
     columns: FormElement[];
@@ -41,7 +41,7 @@ interface FormComponentProps {
   formItemLayout?: any;
   editAccess?: boolean;
   customizeDisabled?: boolean;
-}
+};
 
 const FormComponent: React.FC<FormComponentProps> = ({
   formDef = [],
@@ -74,16 +74,13 @@ const FormComponent: React.FC<FormComponentProps> = ({
     }
   }, [updateForm]);
 
-  const handleSelectChange = ({ name, value }: { name: string; value: any }) =>
-    form.setFieldsValue({ [name]: value });
+  const handleSelectChange = ({ name, value }: { name: string; value: any }) => form.setFieldsValue({ [name]: value });
 
   const renderElement = (element: FormElement['element'], key: string) => {
     const { elementType, disabled = false, name } = element;
 
     const elements: { [key: string]: (props: any) => React.ReactNode } = {
-      input: (inputProperties) => (
-        <Input key={key} disabled={customizeDisabled || disabled} {...inputProperties} />
-      ),
+      input: (inputProperties) => <Input key={key} disabled={customizeDisabled || disabled} {...inputProperties} />,
       textarea: (inputProperties) => (
         <TextArea
           key={key}
@@ -102,9 +99,7 @@ const FormComponent: React.FC<FormComponentProps> = ({
         />
       ),
       checkbox: (checkProperties) => <Checkbox key={key} {...checkProperties} />,
-      button: (buttonProperties) => (
-        <ButtonComponent handleButton={handleButton} extra={extra} {...buttonProperties} />
-      ),
+      button: (buttonProperties) => <ButtonComponent handleButton={handleButton} extra={extra} {...buttonProperties} />,
     };
 
     return elements[elementType](element);
@@ -129,17 +124,8 @@ const FormComponent: React.FC<FormComponentProps> = ({
       {formDef.map(({ gutter, columns }, rowIndex) => (
         <Row gutter={gutter} key={`row_${rowIndex}`}>
           {columns.map(({ span, offset, element, extraClassName = '' }, colIndex) => (
-            <Col
-              span={span}
-              offset={offset}
-              key={`col_${rowIndex}_${colIndex}`}
-              className={extraClassName}
-            >
-              <Form.Item
-                name={element.name}
-                label={element.label}
-                valuePropName={element?.valuePropName || 'value'}
-              >
+            <Col span={span} offset={offset} key={`col_${rowIndex}_${colIndex}`} className={extraClassName}>
+              <Form.Item name={element.name} label={element.label} valuePropName={element?.valuePropName || 'value'}>
                 {renderElement(element, `${rowIndex}_${colIndex}`)}
               </Form.Item>
             </Col>
@@ -147,9 +133,7 @@ const FormComponent: React.FC<FormComponentProps> = ({
         </Row>
       ))}
       {buttonDef.map(({ flexConfig, button }) => (
-        <Row {...flexConfig}>
-          {button.map((config: any) => renderElement(config, `button_${config.key}`))}
-        </Row>
+        <Row {...flexConfig}>{button.map((config: any) => renderElement(config, `button_${config.key}`))}</Row>
       ))}
     </Form>
   );

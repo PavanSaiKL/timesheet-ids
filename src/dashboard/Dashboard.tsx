@@ -16,9 +16,7 @@ const Dashboard = () => {
               </select>
             </div>
           </div>
-          <p className="text-gray-600 mb-6 text-sm md:text-base">
-            Overview of your product sales
-          </p>
+          <p className="text-gray-600 mb-6 text-sm md:text-base">Overview of your product sales</p>
           <Tabs defaultValue="products">
             <TabsList>
               <TabsItem value="products">Products</TabsItem>

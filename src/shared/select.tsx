@@ -30,7 +30,7 @@ const SelectComponent = (properties: any) => {
 
   const handleSearch = (searchValue: string) => {
     const filterOptions = options.filter((option: any) =>
-      option[displayIndex].toLowerCase().includes(searchValue.toLowerCase())
+      option[displayIndex].toLowerCase().includes(searchValue.toLowerCase()),
     );
     setFilteredOptions(filterOptions);
   };
