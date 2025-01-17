@@ -4,6 +4,57 @@ import { mdiCog, mdiPlus } from '@mdi/js';
 import { Table, Button, Tabs, TabsList, TabsItem } from '@kaaylabs-v2/ids';
 
 const Dashboard = () => {
+  const tableColumns = [
+    { dataIndex: 'Subscription', title: 'Subscription' },
+    { dataIndex: 'Subscribed_On', title: 'Subscribed On' },
+    { dataIndex: 'Expiration', title: 'Expiration' },
+    { dataIndex: 'Cost', title: 'Cost' },
+  ];
+
+  const tableData = [
+    {
+      Subscription: 'Kaaylabs',
+      Subscribed_On: '2020-06-06',
+      Expiration: '2023-06-06',
+      Cost: '$4.99',
+    },
+    {
+      Subscription: 'FAST TV Premium+',
+      Subscribed_On: '2022-07-12',
+      Expiration: '2023-07-12',
+      Cost: '$5.99',
+    },
+    {
+      Subscription: 'Bom',
+      Subscribed_On: '2024-12-12',
+      Expiration: '2025-12-12',
+      Cost: '$6.99',
+    },
+    {
+      Subscription: 'Microsoft Office 365',
+      Subscribed_On: '2020-12-25',
+      Expiration: '2023-12-25',
+      Cost: '$99.99',
+    },
+    {
+      Subscription: 'Adobe Creative Cloud',
+      Subscribed_On: '2021-08-30',
+      Expiration: '2023-08-30',
+      Cost: '$59.99',
+    },
+    {
+      Subscription: 'Zoom Pro',
+      Subscribed_On: '2021-04-10',
+      Expiration: '2023-04-10',
+      Cost: '$19.99',
+    },
+    {
+      Subscription: 'LinkedIn Premium',
+      Subscribed_On: '2022-09-15',
+      Expiration: '2023-09-15',
+      Cost: '$29.99',
+    },
+  ];
   return (
     <div className="flex flex-col md:flex-row bg-gray-100 min-h-screen">
       <div className="flex flex-col md:w-3/4 w-full bg-[#f2f2f2] p-6 md:p-14 md:ml-14">
@@ -26,37 +77,7 @@ const Dashboard = () => {
             </TabsList>
           </Tabs>
           <div className="overflow-x-auto mt-6">
-            <Table
-              className="bg-[#fff]"
-              columns={[
-                { dataIndex: 'Subscription', title: 'Subscription' },
-                { dataIndex: 'Subscribed_On', title: 'Subscribed On' },
-                { dataIndex: 'Expiration', title: 'Expiration' },
-                { dataIndex: 'Cost', title: 'Cost' },
-              ]}
-              dataSource={[
-                {
-                  Cost: '$4.99',
-                  Expiration: 'Andrew Miller',
-                  Subscribed_On: '2020-06-06',
-                  Subscription: 'Kaaylabs',
-                },
-                {
-                  Cost: '$5.99',
-                  Expiration: 'Andrew Miller',
-                  Subscribed_On: '2022-07-12',
-                  Subscription: 'FAST TV Premium+',
-                },
-                {
-                  Cost: '$6.99',
-                  Expiration: 'Andrew Miller',
-                  Subscribed_On: '2024-12-12',
-                  Subscription: 'Bom',
-                },
-              ]}
-              onPageChange={() => {}}
-              onSorting={() => {}}
-            />
+            <Table className="bg-[#fff]" columns={tableColumns} dataSource={tableData} />
           </div>
           <div className="flex flex-col sm:flex-row justify-between mt-4 gap-2">
             <Button className="text-[#00008B]" colorScheme="neutral-8">
