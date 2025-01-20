@@ -12,8 +12,8 @@ import {
   mdiAccountCircleOutline,
   mdiLogout,
 } from '@mdi/js';
-import { useNavigate } from 'react-router-dom';
 import './App.css';
+import { useNavigate } from 'react-router-dom';
 
 const menuItems = [
   { icon: mdiHome, route: '/', id: 'home', label: 'Home' },
@@ -64,14 +64,14 @@ const CustomMenu = () => {
         ></div>
       )}
 
-      <Menu defaultOpen modal={false} open={isMobileMenuOpen}>
+      <Menu defaultOpen modal={false} open={isMobileMenuOpen || true}>
         <MenuTrigger>
           <button className="hidden">Trigger</button>
         </MenuTrigger>
         <MenuContent
           container={false}
           className={`h-screen bg-white shadow-lg flex flex-col min-h-[900px] z-50 
-            ${isMobileMenuOpen ? 'w-80 absolute top-0 left-0' : 'hidden'} 
+            ${isMobileMenuOpen ? 'w-80 absolute top-0 left-0' : 'hidden md:flex w-[80px]'}
             transition-all duration-300`}
         >
           <div className="flex items-center px-4 h-16 border-b border-gray-100">
@@ -99,15 +99,27 @@ const CustomMenu = () => {
                     path={icon}
                     size={1}
                     className={`transition-colors duration-200
-                      ${activeMenu === id ? 'text-blue-600' : 'text-gray-700 group-hover:text-gray-900'}`}
+                      ${activeMenu === id ? 'text-blue-600' : 'text-gray-700 group-hover:text-gray-900'}
+                    `}
                   />
-                  <span
-                    className={`transition-colors duration-200
-                      ${activeMenu === id ? 'text-blue-600' : 'text-gray-700 group-hover:text-gray-900'}`}
+                  {isMobileMenuOpen && (
+                    <span
+                      className={`transition-colors duration-200
+                      ${activeMenu === id ? 'text-blue-600' : 'text-gray-700 group-hover:text-gray-900'}
+                    `}
+                    >
+                      {label}
+                    </span>
+                  )}
+                </div>
+                {!isMobileMenuOpen && (
+                  <div
+                    className="absolute left-20 bg-gray-800 text-white px-2 py-1 rounded text-sm 
+                    opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-200"
                   >
                     {label}
-                  </span>
-                </div>
+                  </div>
+                )}
               </MenuItem>
             ))}
           </div>
