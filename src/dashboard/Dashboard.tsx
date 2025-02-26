@@ -2,6 +2,7 @@ import React from 'react';
 import Icon from '@mdi/react';
 import { mdiCog, mdiPlus } from '@mdi/js';
 import { Table, Button, Tabs, TabsList, TabsItem } from '@kaaylabs-v2/ids';
+import { PieChart, Pie, Cell, LineChart, Line, ResponsiveContainer } from 'recharts';
 
 const Dashboard = () => {
   const tableColumns = [
@@ -55,6 +56,22 @@ const Dashboard = () => {
       Cost: '$29.99',
     },
   ];
+
+  const progressData = [{ value: 37.5 }, { value: 62.5 }];
+
+  const waveData = Array.from({ length: 24 }, (_, i) => ({
+    name: i,
+    value: Math.sin(i / 3) * 20 + 40,
+  }));
+
+  const productStats = [
+    { name: 'iPhone 6 - X', units: 173 },
+    { name: 'Google Pixel', units: 89 },
+    { name: 'Sony', units: 100 },
+    { name: 'Huawei', units: 90 },
+    { name: 'Samsung Galaxy', units: 140 },
+  ];
+
   return (
     <div className="flex flex-col md:flex-row bg-gray-100 min-h-screen">
       <div className="flex flex-col md:w-3/4 w-full bg-[#f2f2f2] p-6 md:p-14 md:ml-14">
@@ -101,23 +118,57 @@ const Dashboard = () => {
             Sales Report
             <Icon path={mdiCog} size={1} className="ml-2" />
           </h3>
-          <div className="flex flex-col md:flex-row items-center">
-            <div className="w-full md:w-1/2"></div>
-            <div className="w-full md:w-1/2 text-center mt-2 md:mt-0">
-              <p className="text-3xl md:text-4xl font-bold text-gray-800">37.5%</p>
-              <p className="text-gray-500">increase</p>
+          <div className="flex flex-col items-center">
+            <div className="relative w-48 h-48">
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={progressData}
+                    innerRadius="85%"
+                    outerRadius="100%"
+                    startAngle={180}
+                    endAngle={-180}
+                    dataKey="value"
+                  >
+                    <Cell fill="#FF9F43" />
+                    <Cell fill="#F2F2F2" />
+                  </Pie>
+                </PieChart>
+              </ResponsiveContainer>
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
+                <p className="text-3xl md:text-4xl font-bold text-gray-800">37.5%</p>
+                <p className="text-gray-500">increase</p>
+              </div>
             </div>
           </div>
         </div>
         <div>
           <h3 className="text-lg font-semibold mb-2">Product Stats</h3>
-          <ul className="list-disc pl-5 text-sm md:text-base text-gray-600">
-            <li>iPhone 6 - X: 173 units sold</li>
-            <li>Google Pixel: 89 units sold</li>
-            <li>Sony: 100 units sold</li>
-            <li>Huawei: 90 units sold</li>
-            <li>Samsung Galaxy: 140 units sold</li>
-          </ul>
+          <div className="h-32 mb-4">
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={waveData}>
+                <Line type="monotone" dataKey="value" stroke="#FF9F43" strokeWidth={2} dot={false} />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+          <div className="space-y-3">
+            {productStats.map((product) => (
+              <div key={product.name} className="space-y-1">
+                <div className="flex justify-between text-sm text-gray-600">
+                  <span>{product.name}</span>
+                  <span>{product.units} units sold</span>
+                </div>
+                <div className="w-full bg-gray-100 rounded-full h-1.5">
+                  <div
+                    className="bg-[#FF9F43] h-1.5 rounded-full"
+                    style={{
+                      width: `${(product.units / 200) * 100}%`,
+                    }}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
